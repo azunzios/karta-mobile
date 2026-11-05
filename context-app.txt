@@ -1,0 +1,34 @@
+Sistem akan dibuat bekerja seperti triase di IGD: setiap truk diperiksa kurang dari 1 menit, lalu diarahkan ke jalur yang paling cocok. AI hanya memberi rekomendasi, dan petugas yang memutuskan.
+Cara kerja untuk satu truk:
+
+**Kamera dan AI hanya memberi rekomendasi; petugas yang memutuskan jalur setiap truk.
+(a) Truk dicatat. Sopir memindai kode QR asal TPS, berat tercatat dari jembatan timbang.
+(b) Kamera mengenali isi muatan. Kamera di atas area bongkar (atau di atas konveyor umpan bila ada, karena mau divalidasi saat sosialisasi dan sesi problem clinic). AI menandai mana sisa makanan, plastik, kertas, kayu, dan lainnya.
+(c) Sistem menaksir kadar air dan nilai kalor. Dari komposisi, hujan 24 jam terakhir, dan asal TPS, lalu dikalibrasi dengan uji oven pada sampel nyata.
+(d) Sistem merekomendasikan jalur. Sampah yang sudah kering langsung jadi umpan PLTSa, yang setengah basah dikeringkan dulu (bio-drying dengan serbuk kayu), dan yang sangat basah dialihkan ke maggot atau kompos.
+Kondisi muatan
+Jalur
+Alasan
+Kering (kadar air ≤20%)
+Langsung jadi umpan gasifikasi
+Sudah memenuhi syarat PLTSa 
+Kadar air sedang, banyak plastik/kertas
+Bio-drying + serbuk kayu
+Serbuk kayu (bulking agent, ±10–20%) membuat tumpukan berongga sehingga lebih cepat kering 
+Sangat basah, dominan sisa makanan, plastik sedikit
+Maggot BSF/kompos
+Maggot justru butuh umpan basah (60–90%) dan mengurangi hingga 80% berat sampah; sejalan dengan SE MenLH 11/2026
+
+Hasil yang diharapkan
+PLTSa menerima umpan yang lebih sesuai syaratnya, dan sampah yang tidak cocok tidak dipaksakan.
+DLH punya data per TPS: mana yang sampahnya paling basah dan tercampur, sebagai sasaran edukasi pemilahan.
+Sampah organik basah dialihkan ke jalur yang bernilai, sejalan dengan SE MenLH 11/2026.
+Target ukur awal: taksiran kadar air meleset paling banyak 5 poin persen dari uji oven, dan satu truk selesai dinilai kurang dari 1 menit.
+
+Modul ini adalah meja komando operator di Jembatan Timbang PLTSa Putri Cempo saat truk sampah DLH tiba dari TPS. Dalam waktu < 1 detik, sistem membaca identitas TPS asal muatan, membedah komposisi permukaan tumpukan sampah ke dalam 6 fraksi material menggunakan Computer Vision, mengoreksi bias luas 2D menjadi proporsi berat (massa gravimetrik) menggunakan berat jembatan timbang, lalu menggabungkannya dengan data curah hujan untuk menaksir Kadar Air (%) dan Nilai Kalor Bawah / LHV (MJ/kg) beserta batas ketidakpastiannya. Hasil akhirnya adalah perintah otomatis ke konveyor/operator apakah truk diarahkan ke Rute U (Reaktor Gasifikasi), Rute B (Bio-Drying + Serbuk Kayu Sukoharjo), atau Rute M (Biokonversi Maggot BSF).
+
+KEPUTUSAN TRIASE GERBANG CERDAS · RUTE M · BIOKONVERSI ORGANIK
+Biokonversi Larva Maggot BSF & Kompos Organik Kawasan
+Kadar air tinggi (>=55%), dominan organik, plastik <= 12%: optimal untuk unit Maggot BSF & Kompos
+
+Untuk mencegah risiko penurunan suhu (thermal drop) pada reaktor gasifikasi akibat galat prediksi tunggal, KARTA menyuapkan batas atas kadar air skenario terburuk (P90 / w_atas) ke dalam model Robust Mixed-Integer Linear Programming (MILP). Algoritma ini menjadwalkan seluruh antrean truk harian ke tiga jalur: (1) Rute U (Umpan Gasifikasi Langsung) bagi muatan kering yang menjaga kadar air campuran reaktor tetap ≤20,0%; (2) Rute B (Bio-Drying Terakselerasi + Serbuk Kayu Sukoharjo) bagi muatan lembap menengah dengan menghitung dosis presisi (10–20% massa) limbah serbuk gergaji kering (kadar air ±11,5%, LHV 16,4 MJ/kg) dari sentra UMKM mebel Kabupaten Sukoharjo (Klaster Trangsan/Gatak) sebagai bulking agent guna meningkatkan porositas tumpukan dan memangkas waktu pengeringan dari ±5 hari menjadi 3,2 hari [11]; serta (3) Rute M (Biokonversi Maggot BSF & Kompos) bagi muatan organik pasar berkadar air ≥55% dan plastik ≤12% menuju unit biokonversi larva Hermetia illucens (BSF) yang justru membutuhkan kelembapan 60–90% dan mampu mereduksi hingga 75–80% massa sampah basah dalam siklus 14 hari [12].
