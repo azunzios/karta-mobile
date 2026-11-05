@@ -83,7 +83,7 @@ export default function Karta() {
   
   <div className="section-heading"><h2>Terakhir</h2><button className="text-button" onClick={()=>go('history')}>Lihat semua <ArrowRight size={15}/></button></div>
   {completed.slice(0,2).map(job=><JobCard key={job.id} job={job} onClick={()=>{setSelectedJob(job);setSheet('detail');}}/>)}
-  <div className="location-footer"><span className="location-dot"/>PLTSa Putri Cempo <span>·</span> Surakarta</div>
+  <div className="location-footer">PLTSa Putri Cempo, Surakarta</div>
  </>}
 
  {view==='scan'&&<>
