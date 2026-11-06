@@ -1,4 +1,4 @@
-# Pelatihan model KARTA
+# Pelatihan model SORA
 
 Folder ini berisi semua yang dibutuhkan untuk melatih dan mengevaluasi model yang dipakai aplikasi petugas.
 Rumus dan pengaturan mengikuti lampiran laporan Bab 3.
@@ -7,13 +7,13 @@ Rumus dan pengaturan mengikuti lampiran laporan Bab 3.
 |---|---|
 | `karta_kelas.py` | Daftar 7 kelas (urutan sama dengan aplikasi), nama label LabelMe yang dikenali, pemetaan TACO |
 | `labelme_ke_mask.py` | Anotasi poligon LabelMe → masker PNG + `meta.csv` (ID muatan dari nama file) |
-| `taco_ke_karta.py` | (Opsional) dataset publik TACO → masker KARTA, khusus pralatih |
-| `zerowaste_ke_karta.py` | (Opsional) ZeroWaste-f (1.245 frame latih, CC BY-NC 4.0) → masker KARTA, khusus pralatih |
+| `taco_ke_karta.py` | (Opsional) dataset publik TACO → masker SORA, khusus pralatih |
+| `zerowaste_ke_karta.py` | (Opsional) ZeroWaste-f (1.245 frame latih, CC BY-NC 4.0) → masker SORA, khusus pralatih |
 | `buat_split.py` | Membekukan pembagian data: set uji akhir berstrata per lokasi + 5 lipatan StratifiedGroupKFold, mencetak SHA-256 |
 | `buat_data_sintetis.py` | Data tekstur buatan untuk menguji alur. **Bukan foto sampah** |
 | `latih.py` | DeepLabv3+, Focal + Dice, validasi silang per muatan, tinggalkan-satu-lokasi, selang bootstrap, ekspor ONNX (+INT8) |
 | `kalibrasi_kadar_air.py` | Model kadar air hibrida (fisika + ridge) dan rentang Jackknife+ dari data uji oven |
-| `notebook/KARTA_Latih_DeepLabv3plus.ipynb` | Notebook Google Colab (GPU T4) yang menjalankan semua langkah di atas |
+| `notebook/SORA_Latih_DeepLabv3plus.ipynb` | Notebook Google Colab (GPU T4) yang menjalankan semua langkah di atas |
 | `templat/` | Contoh `meta.csv` foto dan `uji_oven.csv` |
 
 ## Alur singkat

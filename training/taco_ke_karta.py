@@ -1,4 +1,4 @@
-"""(Opsional) Ubah dataset TACO menjadi masker KARTA untuk pralatih.
+"""(Opsional) Ubah dataset TACO menjadi masker SORA untuk pralatih.
 
 TACO (Proença & Simões, 2020; http://tacodataset.org, lisensi CC BY 4.0)
 berisi ±1.500 foto sampah dengan anotasi poligon. Unduh di Colab:
@@ -7,7 +7,7 @@ lalu:
   python taco_ke_karta.py --anotasi TACO/data/annotations.json --gambar TACO/data --keluar data/taco
 
 Catatan: TACO adalah sampah kering berserakan di alam terbuka, bukan muatan
-sampah basah. Gunakan hanya untuk pralatih, jangan untuk data uji KARTA.
+sampah basah. Gunakan hanya untuk pralatih, jangan untuk data uji SORA.
 """
 from __future__ import annotations
 

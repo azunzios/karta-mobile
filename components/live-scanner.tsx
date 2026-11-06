@@ -120,7 +120,7 @@ export default function LiveScanner({ part, weight, percent, onHasil, onSimulasi
   const rata = rataFrame(luas);
   const variasi = variasiAntarFrame(luas);
   const peringatan = [...masalah];
-  if (ent / total > MUTU.entropiMaks) peringatan.push('Model ragu mengenali sebagian besar piksel. Periksa manual sebelum memutuskan.');
+  if (ent / total > MUTU.entropiMaks) peringatan.push('Sebagian besar gambar sulit dikenali. Periksa manual sebelum memutuskan.');
   if (variasi > MUTU.variasiProporsiMaks) peringatan.push(`Komposisi antarframe berubah besar (±${variasi.toFixed(0)} poin). Periksa manual.`);
   if (latar / total > 85) peringatan.push('Sampah hampir tidak terlihat di kotak pindai. Arahkan kamera ke tumpukan sampah.');
   let snapshot = '';
@@ -162,10 +162,10 @@ export default function LiveScanner({ part, weight, percent, onHasil, onSimulasi
   {galatMedia && <button type="button" className="secondary full fallback-sim" onClick={onSimulasi}>Pakai data simulasi</button>}
   {mutuLangsung.length > 0 && <p className="advice quality-warning"><Warning size={17} />{mutuLangsung[0]}</p>}
   {status.tahap === 'galat' ? <div className="model-error"><Warning size={20} /><div><strong>Model belum dapat dimuat</strong><small>{status.pesan}</small></div><button type="button" className="secondary full" onClick={onSimulasi}>Pakai data simulasi</button></div>
-   : mesin && <p className="model-line"><Cpu size={16} /><span>{mesin.meta.nama} · {mesin.meta.ukuran_masukan[0]} px · {mesin.ukuranMb.toFixed(1)} MB</span>{ujiAlur ? <b className="model-tag warn">UJI ALUR</b> : <b className="model-tag">MODEL</b>}</p>}
-  {ujiAlur && <p className="model-note">Model ini dilatih dengan data sintetis hanya untuk menguji alur. Hasilnya belum bermakna untuk sampah nyata sampai dilatih ulang dengan foto tim.</p>}
+   : mesin && <p className="model-line"><Cpu size={16} /><span>{mesin.meta.nama} · {mesin.meta.ukuran_masukan[0]} px · {mesin.ukuranMb.toFixed(1)} MB</span>{ujiAlur ? <b className="model-tag warn">VERSI UJI</b> : <b className="model-tag">MODEL</b>}</p>}
+  {ujiAlur && <p className="model-note">Model versi uji. Angka belum mewakili sampah nyata sampai model dilatih dengan foto lapangan.</p>}
   <button className="primary full" disabled={!mesin || sibuk || status.tahap === 'memuat' || (sumber !== 'foto' && !siapMedia) || (sumber === 'foto' && !urlFoto)} onClick={pindai}>
-   {sibuk ? <><span className="spinner small" />Menganalisis {status.frame}/{status.total}…</> : <>Pindai contoh</>}
+   {sibuk ? <><span className="spinner small" />Menganalisis {status.frame}/{status.total}…</> : <>Mulai analisis</>}
   </button>
  </div>;
 }

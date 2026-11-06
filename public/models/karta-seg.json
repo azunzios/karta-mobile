@@ -1,5 +1,5 @@
 {
- "nama": "KARTA-Seg DeepLabv3+ mobilenet_v2",
+ "nama": "SORA-Seg versi uji",
  "versi": "20261106-1057",
  "arsitektur": "DeepLabv3+",
  "encoder": "mobilenet_v2",

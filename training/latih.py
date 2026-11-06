@@ -1,4 +1,4 @@
-"""Latih, evaluasi, dan ekspor model segmentasi KARTA (DeepLabv3+).
+"""Latih, evaluasi, dan ekspor model segmentasi SORA (DeepLabv3+).
 
 Sesuai lampiran Subbab 3.3, 3.4, dan 3.9:
 - Arsitektur DeepLabv3+ (segmentation_models_pytorch), encoder ResNet-50 pralatih ImageNet.
@@ -459,7 +459,7 @@ def main() -> None:
     # 4) ekspor untuk aplikasi
     hasil["ekspor"] = ekspor_onnx(model, a, keluar, folder, sisa)
     meta_model = {
-        "nama": f"KARTA-Seg DeepLabv3+ {a.encoder}",
+        "nama": f"SORA-Seg DeepLabv3+ {a.encoder}",
         "versi": datetime.now().strftime("%Y%m%d-%H%M"),
         "arsitektur": "DeepLabv3+",
         "encoder": a.encoder,

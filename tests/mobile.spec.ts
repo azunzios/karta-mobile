@@ -93,7 +93,7 @@ test('alur muatan parsial, keputusan, laporan, dan pemulihan sesi',async({page})
  await expect(page.getByText('Rekomendasi awal: Rute M')).toBeVisible();
  const download=page.waitForEvent('download');
  await page.getByRole('button',{name:'Unduh laporan'}).click();
- expect((await download).suggestedFilename()).toMatch(/KARTA-.*\.csv/);
+ expect((await download).suggestedFilename()).toMatch(/SORA-.*\.csv/);
  await page.screenshot({path:'artifacts/04-ringkasan.png',fullPage:true});
  await page.keyboard.press('Escape');
  await page.reload();
@@ -156,8 +156,8 @@ test('model segmentasi berjalan di peramban dari video contoh dan foto',async({p
  await page.addInitScript(()=>localStorage.setItem('karta-prototype-v1',JSON.stringify({logged:true,userId:'OP-042',activeId:'TEST-MODEL',jobs:[{id:'TEST-MODEL',tps:'TPS Uji Model',plate:'AD 1 HA',total:700,batchSize:500,batches:[],done:false,createdAt:new Date().toISOString(),tpsType:'pasar',rain24:12,rain72:20}]})));
  await page.goto('/');
  await page.getByRole('button',{name:'Pindai',exact:true}).click();
- await expect(page.locator('.model-line')).toContainText('KARTA-Seg',{timeout:60000});
- const scan=page.getByRole('button',{name:'Pindai contoh'});
+ await expect(page.locator('.model-line')).toContainText('SORA-Seg',{timeout:60000});
+ const scan=page.getByRole('button',{name:'Mulai analisis'});
  await expect(scan).toBeEnabled({timeout:30000});
  await scan.click();
  await expect(page.getByRole('heading',{name:'Hasil bagian 1'})).toBeVisible({timeout:60000});

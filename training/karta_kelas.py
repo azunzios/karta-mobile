@@ -1,4 +1,4 @@
-"""Daftar kelas KARTA dan pemetaan label.
+"""Daftar kelas SORA dan pemetaan label.
 
 Urutan kelas WAJIB sama dengan aplikasi (lib/karta/konstanta.ts) dan
 Tabel 3.3 lampiran: 0 latar, 1 organik basah, 2 plastik, 3 kertas dan kardus,
@@ -31,7 +31,7 @@ def kelas_dari_label(label: str) -> int | None:
 
 
 def kelas_taco(nama: str, super_kategori: str) -> int:
-    """Pemetaan 60 kategori TACO ke kelas KARTA (dipakai hanya untuk pralatih).
+    """Pemetaan 60 kategori TACO ke kelas SORA (dipakai hanya untuk pralatih).
 
     TACO berisi sampah kering di alam terbuka, sehingga kelas organik basah,
     kayu, dan inert tanah/batu hampir tidak ada. Hasil pralatih TACO tetap

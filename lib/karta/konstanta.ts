@@ -1,4 +1,4 @@
-// Konstanta KARTA. Semua angka di sini sama dengan lampiran laporan (Tabel 3.3, 3.5, 3.7)
+// Konstanta SORA. Semua angka di sini sama dengan lampiran laporan (Tabel 3.3, 3.5, 3.7)
 // agar aplikasi, dashboard, dan dokumen memakai rumus dan nilai yang sama.
 
 /** Urutan kelas keluaran model segmentasi (indeks 0..6). WAJIB sama dengan training/karta_kelas.py. */

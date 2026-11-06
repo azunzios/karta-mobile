@@ -1,4 +1,4 @@
-"""Buat dan bekukan pembagian data KARTA (lampiran Subbab 3.3).
+"""Buat dan bekukan pembagian data SORA (lampiran Subbab 3.3).
 
 Langkah:
 1. Set uji akhir diambil acak berstrata per lokasi (kolom `tps`) dengan benih tetap:

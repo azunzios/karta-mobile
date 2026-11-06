@@ -1,4 +1,4 @@
-// Rumus taksiran KARTA: luas -> massa -> kadar air -> rentang -> LHV -> rute -> dosis.
+// Rumus taksiran SORA: luas -> massa -> kadar air -> rentang -> LHV -> rute -> dosis.
 // Nomor persamaan merujuk ke lampiran laporan Bab 3.
 import { AMBANG, C_MASSA, DOSIS, ENERGI, FRAKSI, FRAKSI_SERAP, H_KERING, KALOR_UAP_AIR, W_FRAKSI, type Fraksi } from './konstanta.ts';
 
@@ -80,7 +80,7 @@ export const MODEL_KADAR_AIR_BAWAAN: ModelKadarAir = {
   versi: 'bawaan-belum-kalibrasi', metode: 'bawaan', n: 0, alpha: 0.2,
   fitur: ['log1p_R24', 'log1p_R72', 'R24_x_serap', 'tps_pasar'], rerata: [0, 0, 0, 0], sb: [1, 1, 1, 1], b0: 0, b: [0, 0, 0, 0],
   lebarBawaan: { bawah: 0.1, atas: 0.1 },
-  catatan: 'Belum dikalibrasi uji oven: koreksi hujan = 0 dan rentang memakai lebar bawaan ±10 poin persen.',
+  catatan: 'Kadar air belum dikalibrasi dengan uji laboratorium. Rentang memakai lebar bawaan ±10 poin.',
 };
 
 export type Konteks = { hujan24: number; hujan72: number; jenisTps: 'pasar' | 'permukiman' | 'ruang_publik' | 'lainnya' };

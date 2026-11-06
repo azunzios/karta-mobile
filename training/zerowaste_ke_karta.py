@@ -1,4 +1,4 @@
-"""(Opsional) Ubah ZeroWaste-f menjadi masker KARTA untuk pralatih (lampiran Subbab 3.1.6).
+"""(Opsional) Ubah ZeroWaste-f menjadi masker SORA untuk pralatih (lampiran Subbab 3.1.6).
 
 ZeroWaste-f (Bashkirova dkk., CVPR 2022) berisi 1.874 frame konveyor fasilitas daur ulang
 (latih 1.245, validasi 312, uji 317) dengan anotasi poligon empat kelas: cardboard,
