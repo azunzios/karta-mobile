@@ -29,7 +29,7 @@ Unggah proyek ke repositori Git, lalu impor repositori di Vercel. Pilih framewor
 ## Alur
 
 1. Masuk dan catat TPS asal, pelat, berat bersih, serta ukuran bagian (1-500 kg). Pindai ID petugas TPS dengan kartu contoh; identitas disimpan bersama muatan dan laporan CSV. TPS asal dan pelat tetap diketik manual.
-2. Pindai contoh tiap bagian. Berat bagian terakhir mengikuti sisa berat. Contoh 1.200 kg dibagi 500 + 500 + 200 kg.
+2. Pindai contoh tiap bagian. Latar `trash_conveyor_horizontal_final.mp4` diputar sekitar satu detik lalu dijeda selama analisis. Pemindaian berikutnya melanjutkan posisi video sebelumnya. Jika video tidak dapat dimuat atau diputar, placeholder muncul dan simulasi tetap berjalan. Berat bagian terakhir mengikuti sisa berat. Contoh 1.200 kg dibagi 500 + 500 + 200 kg.
 3. Periksa enam fraksi, estimasi kadar air, batas atas, dan nilai kalor. Pilih rute U/B/M. Perubahan rute membutuhkan alasan minimal 10 karakter, disimpan bersama rekomendasi awal.
 4. Catat semua bagian lalu selesaikan muatan. Ringkasan menampilkan berat per tujuan dan rincian setiap bagian. Unduh CSV dengan pemisah titik koma untuk pengolahan lanjutan.
 

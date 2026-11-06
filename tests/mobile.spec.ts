@@ -70,8 +70,19 @@ test('alur muatan parsial, keputusan, laporan, dan pemulihan sesi',async({page})
  await expect(page.getByText('3 bagian pemindaian')).toBeVisible();
  await page.getByRole('button',{name:'Mulai pindai'}).click();
  expect(await page.evaluate(()=>JSON.parse(localStorage.getItem('karta-prototype-v1')!).jobs[0].tpsWorkerId)).toBe('TPS-017');
+ const conveyor=page.locator('.conveyor-video');
+ await expect.poll(()=>conveyor.evaluate(el=>(el as HTMLVideoElement).readyState)).toBeGreaterThanOrEqual(2);
  for(let i=0;i<3;i++){
+  const start=await conveyor.evaluate(el=>(el as HTMLVideoElement).currentTime);
   await page.getByRole('button',{name:'Pindai contoh'}).click();
+  await expect(page.locator('.conveyor-camera')).toHaveAttribute('data-phase','scanning');
+  const stopped=await conveyor.evaluate(el=>({time:(el as HTMLVideoElement).currentTime,paused:(el as HTMLVideoElement).paused,duration:(el as HTMLVideoElement).duration}));
+  expect(stopped.paused).toBe(true);
+  const elapsed=stopped.time>=start?stopped.time-start:stopped.duration-start+stopped.time;
+  expect(elapsed).toBeGreaterThan(.7);
+  expect(elapsed).toBeLessThan(1.7);
+  await page.waitForTimeout(150);
+  expect(await conveyor.evaluate(el=>(el as HTMLVideoElement).currentTime)).toBeCloseTo(stopped.time,1);
   await expect(page.getByRole('heading',{name:`Hasil bagian ${i+1}`})).toBeVisible();
   if(i===0){
    await page.getByRole('button',{name:'Rute B Bio-drying'}).click();
@@ -110,6 +121,21 @@ test('alur muatan parsial, keputusan, laporan, dan pemulihan sesi',async({page})
  await page.locator('.route-scan-card').first().click();
  await expect(page.getByRole('dialog').getByText(/Unit maggot BSF & kompos.*Zona M/)).toBeVisible();
  expect(errors).toEqual([]);
+});
+test('video gagal dimuat tetap dapat dipindai dan pindah menu membatalkan proses',async({page})=>{
+ await page.route('**/trash_conveyor_horizontal_final.mp4',route=>route.abort());
+ await page.addInitScript(()=>localStorage.setItem('karta-prototype-v1',JSON.stringify({logged:true,userId:'OP-042',activeId:'TEST-VIDEO',jobs:[{id:'TEST-VIDEO',tps:'TPS Uji Video',plate:'AD 1234 HA',total:1000,batchSize:500,batches:[],done:false,createdAt:new Date().toISOString()}]})));
+ await page.goto('/');
+ await page.getByRole('button',{name:'Pindai',exact:true}).click();
+ await expect(page.getByTestId('video-fallback')).toBeVisible();
+ await page.getByRole('button',{name:'Pindai contoh'}).click();
+ await page.getByRole('button',{name:'Beranda',exact:true}).click();
+ await page.getByRole('button',{name:'Pindai',exact:true}).click();
+ await expect(page.getByRole('button',{name:'Pindai contoh'})).toBeEnabled();
+ await page.getByRole('button',{name:'Pindai contoh'}).click();
+ await expect(page.getByRole('heading',{name:'Hasil bagian 1'})).toBeVisible();
+ await page.getByRole('button',{name:'Simpan rute'}).click();
+ await expect(page.getByRole('button',{name:'Pindai contoh'})).toBeEnabled();
 });
 test('tampilan ponsel, lanskap, dan gerakan berkurang',async({page})=>{
  await page.emulateMedia({reducedMotion:'reduce'});
