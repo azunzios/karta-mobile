@@ -35,6 +35,9 @@ test('ringkasan 3 ton tampil sebagai 3.000 kg tanpa nilai demo tetap',async({pag
 });
 test('alur muatan parsial, keputusan, laporan, dan pemulihan sesi',async({page})=>{
  const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
+ // Model diblokir agar data simulasi yang dipakai dan angka uji tetap.
+ await page.route('**/models/karta-seg.json',route=>route.abort());
+ await page.route('**/api.open-meteo.com/**',route=>route.fulfill({json:{hourly:{time:[],precipitation:[]}}}));
  await page.goto('/');
  await expect(page.getByRole('heading',{name:'Masuk' ,exact:false})).toBeVisible();
  await page.screenshot({path:'artifacts/01-masuk.png',fullPage:true});
@@ -50,9 +53,9 @@ test('alur muatan parsial, keputusan, laporan, dan pemulihan sesi',async({page})
  await expect(page.locator('.weight-gauge .pointer circle')).toBeVisible();
  await expect(page.locator('.weight-gauge .pointer path')).toHaveCSS('fill','none');
  await expect(page.locator('.speed-main-stat')).toHaveCount(3);
- await expect(page.locator('.speed-mini-stat')).toHaveCount(3);
+ await expect(page.locator('.speed-mini-stat')).toHaveCount(4);
  await expect(page.locator('.speed-main-stat').filter({hasText:'Air rerata'}).locator('strong')).toHaveText('41 %');
- await expect(page.locator('.speed-icon')).toHaveCount(6);
+ await expect(page.locator('.speed-icon')).toHaveCount(7);
  await expect(page.getByText('GERBANG CERDAS',{exact:true})).toHaveCount(0);
  await page.screenshot({path:'artifacts/02-beranda.png',fullPage:true});
  await page.getByRole('button',{name:'Mulai muatan baru'}).click();
@@ -70,19 +73,9 @@ test('alur muatan parsial, keputusan, laporan, dan pemulihan sesi',async({page})
  await expect(page.getByText('3 bagian pemindaian')).toBeVisible();
  await page.getByRole('button',{name:'Mulai pindai'}).click();
  expect(await page.evaluate(()=>JSON.parse(localStorage.getItem('karta-prototype-v1')!).jobs[0].tpsWorkerId)).toBe('TPS-017');
- const conveyor=page.locator('.conveyor-video');
- await expect.poll(()=>conveyor.evaluate(el=>(el as HTMLVideoElement).readyState)).toBeGreaterThanOrEqual(2);
+ await expect(page.getByText('Model belum dapat dimuat')).toBeVisible();
  for(let i=0;i<3;i++){
-  const start=await conveyor.evaluate(el=>(el as HTMLVideoElement).currentTime);
-  await page.getByRole('button',{name:'Pindai contoh'}).click();
-  await expect(page.locator('.conveyor-camera')).toHaveAttribute('data-phase','scanning');
-  const stopped=await conveyor.evaluate(el=>({time:(el as HTMLVideoElement).currentTime,paused:(el as HTMLVideoElement).paused,duration:(el as HTMLVideoElement).duration}));
-  expect(stopped.paused).toBe(true);
-  const elapsed=stopped.time>=start?stopped.time-start:stopped.duration-start+stopped.time;
-  expect(elapsed).toBeGreaterThan(.7);
-  expect(elapsed).toBeLessThan(1.7);
-  await page.waitForTimeout(150);
-  expect(await conveyor.evaluate(el=>(el as HTMLVideoElement).currentTime)).toBeCloseTo(stopped.time,1);
+  await page.getByRole('button',{name:'Pakai data simulasi'}).click();
   await expect(page.getByRole('heading',{name:`Hasil bagian ${i+1}`})).toBeVisible();
   if(i===0){
    await page.getByRole('button',{name:'Rute B Bio-drying'}).click();
@@ -112,7 +105,7 @@ test('alur muatan parsial, keputusan, laporan, dan pemulihan sesi',async({page})
   await page.getByRole('button',{name:'Beranda',exact:true}).click();
   await expect(page.locator('.weight-gauge')).toHaveAttribute('data-total-kg','2200');
   await expect(page.locator('.weight-gauge')).toContainText('2.200 kg');
-  await expect(page.locator('.speed-main-stat').filter({hasText:'Air rerata'}).locator('strong')).toHaveText('43,8 %');
+  await expect(page.locator('.speed-main-stat').filter({hasText:'Air rerata'}).locator('strong')).toHaveText('44,7 %');
   await page.locator(`.route-tile:has(.route-letter:text-is("${route}"))`).click();
   await expect(page.getByRole('heading',{name:`Tujuan ${route}`,exact:true})).toBeVisible();
   await expect(page.locator('.route-scan-card')).toHaveCount(count);
@@ -122,20 +115,20 @@ test('alur muatan parsial, keputusan, laporan, dan pemulihan sesi',async({page})
  await expect(page.getByRole('dialog').getByText(/Unit maggot BSF & kompos.*Zona M/)).toBeVisible();
  expect(errors).toEqual([]);
 });
-test('video gagal dimuat tetap dapat dipindai dan pindah menu membatalkan proses',async({page})=>{
+test('video gagal dimuat tetap dapat dilanjutkan dengan data simulasi',async({page})=>{
  await page.route('**/trash_conveyor_horizontal_final.mp4',route=>route.abort());
  await page.addInitScript(()=>localStorage.setItem('karta-prototype-v1',JSON.stringify({logged:true,userId:'OP-042',activeId:'TEST-VIDEO',jobs:[{id:'TEST-VIDEO',tps:'TPS Uji Video',plate:'AD 1234 HA',total:1000,batchSize:500,batches:[],done:false,createdAt:new Date().toISOString()}]})));
  await page.goto('/');
  await page.getByRole('button',{name:'Pindai',exact:true}).click();
  await expect(page.getByTestId('video-fallback')).toBeVisible();
- await page.getByRole('button',{name:'Pindai contoh'}).click();
  await page.getByRole('button',{name:'Beranda',exact:true}).click();
  await page.getByRole('button',{name:'Pindai',exact:true}).click();
- await expect(page.getByRole('button',{name:'Pindai contoh'})).toBeEnabled();
- await page.getByRole('button',{name:'Pindai contoh'}).click();
+ await expect(page.getByTestId('video-fallback')).toBeVisible();
+ await page.getByRole('button',{name:'Pakai data simulasi'}).click();
  await expect(page.getByRole('heading',{name:'Hasil bagian 1'})).toBeVisible();
  await page.getByRole('button',{name:'Simpan rute'}).click();
- await expect(page.getByRole('button',{name:'Pindai contoh'})).toBeEnabled();
+ await expect(page.getByRole('heading',{name:'Hasil bagian 2'})).toHaveCount(0);
+ await expect(page.getByTestId('video-fallback')).toBeVisible();
 });
 test('tampilan ponsel, lanskap, dan gerakan berkurang',async({page})=>{
  await page.emulateMedia({reducedMotion:'reduce'});
@@ -154,4 +147,35 @@ test('tampilan ponsel, lanskap, dan gerakan berkurang',async({page})=>{
  await page.getByText('Apakah seluruh truk harus masuk satu rute?').click();
  await expect(page.getByText('Tidak. Muatan dibagi per bagian', {exact:false})).toBeVisible();
  await page.screenshot({path:'artifacts/05-bantuan.png',fullPage:true});
+});
+
+test('model segmentasi berjalan di peramban dari video contoh dan foto',async({page})=>{
+ test.setTimeout(120000);
+ const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.route('**/api.open-meteo.com/**',route=>route.fulfill({json:{hourly:{time:[],precipitation:[]}}}));
+ await page.addInitScript(()=>localStorage.setItem('karta-prototype-v1',JSON.stringify({logged:true,userId:'OP-042',activeId:'TEST-MODEL',jobs:[{id:'TEST-MODEL',tps:'TPS Uji Model',plate:'AD 1 HA',total:700,batchSize:500,batches:[],done:false,createdAt:new Date().toISOString(),tpsType:'pasar',rain24:12,rain72:20}]})));
+ await page.goto('/');
+ await page.getByRole('button',{name:'Pindai',exact:true}).click();
+ await expect(page.locator('.model-line')).toContainText('KARTA-Seg',{timeout:60000});
+ const scan=page.getByRole('button',{name:'Pindai contoh'});
+ await expect(scan).toBeEnabled({timeout:30000});
+ await scan.click();
+ await expect(page.getByRole('heading',{name:'Hasil bagian 1'})).toBeVisible({timeout:60000});
+ await expect(page.locator('.result-snapshot')).toBeVisible();
+ await expect(page.locator('.range-block')).toBeVisible();
+ const total=await page.locator('.composition-legend strong').evaluateAll(els=>els.reduce((s,e)=>s+parseInt(e.textContent||'0',10),0));
+ expect(total).toBe(100);
+ expect(['U','B','M','R']).toContain(await page.locator('.big-route').textContent());
+ await page.screenshot({path:'artifacts/06-hasil-model.png',fullPage:true});
+ await page.getByRole('button',{name:'Simpan rute'}).click();
+ await page.getByRole('button',{name:/Foto/}).click();
+ await page.locator('input[type=file]').setInputFiles('tests/fixtures/sampah-contoh.jpg');
+ await expect(scan).toBeEnabled();
+ await scan.click();
+ await expect(page.getByRole('heading',{name:'Hasil bagian 2'})).toBeVisible({timeout:60000});
+ const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('karta-prototype-v1')!).jobs[0].batches[0]);
+ expect(saved.source).toBe('model');
+ expect(saved.snapshot).toBeUndefined();
+ expect(saved.lower).toBeLessThanOrEqual(saved.water);
+ expect(errors).toEqual([]);
 });

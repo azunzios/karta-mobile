@@ -20,7 +20,7 @@ export default function SummaryScale({totalKg,loads,routeWeights,readings,onRout
    <div className="speed-main-stat"><div className="speed-label"><div className="speed-icon aqua" aria-hidden="true"><Drop size={18}/></div><span>Air rerata</span></div><strong>{water===null?'—':format(water)}<small> %</small></strong></div>
   </div>
   <div className="speed-secondary">
-   {(['U','B','M'] as Route[]).map(route=><button className={`speed-mini-stat speed-route-${route}`} key={route} onClick={()=>onRoute(route)} aria-label={`Tujuan ${route}, ${format(routeWeights[route])} kilogram`}><div className="speed-icon" aria-hidden="true">{route}</div><strong>{format(routeWeights[route])}<small> kg</small></strong></button>)}
+   {(['U','B','M','R'] as Route[]).map(route=><button className={`speed-mini-stat speed-route-${route}`} key={route} onClick={()=>onRoute(route)} aria-label={`Tujuan ${route}, ${format(routeWeights[route])} kilogram`}><div className="speed-icon" aria-hidden="true">{route}</div><strong>{format(routeWeights[route])}<small> kg</small></strong></button>)}
   </div>
   <div className="weight-gauge" data-weight-kg={totalKg} data-total-kg={totalKg} role="img" aria-label={`Total ${format(totalKg)} kilogram. Rentang nol sampai ${format(maximum)} kilogram.`}>
    <GaugeComponent
