@@ -7,12 +7,15 @@
     "build": "next build",
     "start": "next start --hostname 0.0.0.0",
     "typecheck": "tsc --noEmit",
-    "test": "node --experimental-strip-types --test lib/triage.test.ts",
-    "test:e2e": "playwright test"
+    "test": "node --experimental-strip-types --test lib/triage.test.ts lib/karta/*.test.ts",
+    "test:e2e": "playwright test",
+    "postinstall": "node scripts/salin-ort.mjs",
+    "prebuild": "node scripts/salin-ort.mjs"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
     "next": "latest",
+    "onnxruntime-web": "1.20.1",
     "react": "latest",
     "react-dom": "latest",
     "react-gauge-component": "^2.0.29"

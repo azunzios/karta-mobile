@@ -1,0 +1,36 @@
+{
+ "versi": "bawaan-belum-kalibrasi",
+ "metode": "bawaan",
+ "n": 0,
+ "alpha": 0.2,
+ "fitur": [
+  "log1p_R24",
+  "log1p_R72",
+  "R24_x_serap",
+  "tps_pasar"
+ ],
+ "rerata": [
+  0,
+  0,
+  0,
+  0
+ ],
+ "sb": [
+  1,
+  1,
+  1,
+  1
+ ],
+ "b0": 0,
+ "b": [
+  0,
+  0,
+  0,
+  0
+ ],
+ "lebarBawaan": {
+  "bawah": 0.1,
+  "atas": 0.1
+ },
+ "catatan": "Belum dikalibrasi uji oven. Ganti berkas ini dengan keluaran training/kalibrasi_kadar_air.py setelah ada data uji oven."
+}

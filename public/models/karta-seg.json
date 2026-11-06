@@ -1,0 +1,84 @@
+{
+ "nama": "SORA-Seg versi uji",
+ "versi": "20261106-1057",
+ "arsitektur": "DeepLabv3+",
+ "encoder": "mobilenet_v2",
+ "berkas": "karta-seg-int8.onnx",
+ "kelas": [
+  "latar",
+  "organik_basah",
+  "plastik",
+  "kertas_kardus",
+  "tekstil",
+  "kayu_ranting",
+  "inert"
+ ],
+ "nama_kelas": [
+  "Latar",
+  "Organik basah",
+  "Plastik",
+  "Kertas dan kardus",
+  "Tekstil",
+  "Kayu dan ranting",
+  "Inert"
+ ],
+ "warna": [
+  [
+   40,
+   48,
+   61
+  ],
+  [
+   17,
+   167,
+   146
+  ],
+  [
+   82,
+   125,
+   240
+  ],
+  [
+   231,
+   179,
+   75
+  ],
+  [
+   176,
+   155,
+   232
+  ],
+  [
+   184,
+   137,
+   99
+  ],
+  [
+   155,
+   168,
+   186
+  ]
+ ],
+ "ukuran_masukan": [
+  256,
+  256
+ ],
+ "mean": [
+  0.48500001430511475,
+  0.4560000002384186,
+  0.4059999883174896
+ ],
+ "std": [
+  0.2290000021457672,
+  0.2240000069141388,
+  0.22499999403953552
+ ],
+ "masukan": "masukan",
+ "keluaran": "prob",
+ "sumber_data": "sintetis-uji-alur",
+ "metrik_uji": {
+  "miou": 0.5612,
+  "mae_proporsi_pp": 4.406,
+  "muatan_uji": 10
+ }
+}
