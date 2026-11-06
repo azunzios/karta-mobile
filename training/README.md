@@ -36,8 +36,8 @@ Rumus dan pengaturan mengikuti lampiran laporan Bab 3.
 - `ekspor`: ukuran berkas, selisih Torch vs ONNX, kesesuaian INT8 vs FP32, waktu per frame.
 
 Set uji dipisah **per muatan**, sehingga foto dari muatan yang sama tidak pernah muncul di data latih dan data uji sekaligus.
-Rencana jumlah data tahap 1 (lampiran Tabel 3.5): 96 unit (4 lokasi × 18 muatan nyata + 24 campuran buatan), 480 foto berlabel,
-60 unit uji oven. Set uji akhir 18 unit (90 foto); data pengembangan 78 unit (390 foto) dalam 5 lipatan.
+Rencana jumlah data tahap 1 (lampiran Tabel 3.5): 60 unit (4 lokasi × 10 muatan nyata + 20 campuran buatan), 300 foto berlabel,
+25 unit uji oven. Set uji akhir 18 unit (90 foto); data pengembangan 42 unit (210 foto) dalam 5 lipatan.
 Kolom `tps` dipakai sebagai lokasi; beri nilai `Campuran` untuk campuran buatan (D4) dan kolom `oven` = 1 untuk unit yang diuji oven.
 
 ## Model yang saat ini ada di `public/models/`
