@@ -22,7 +22,7 @@ Rumus dan pengaturan mengikuti lampiran laporan Bab 3.
 2. Anotasi poligon di LabelMe dengan label `organik`, `plastik`, `kertas`, `tekstil`, `kayu`, `inert`, atau `abaikan`.
 3. Jalankan `buat_split.py` **sekali** untuk membekukan pembagian data, catat SHA-256-nya. Lalu jalankan notebook di Colab. Hasilnya `karta-seg.json`, `karta-seg(-int8).onnx`, `evaluasi.json`, `matriks_kebingungan.png`.
 4. Salin `karta-seg.json` dan berkas ONNX yang tertulis pada kolom `berkas` ke `public/models/`, lalu deploy ulang.
-5. Setelah ada uji oven (≥ 30 muatan), jalankan `kalibrasi_kadar_air.py` dan salin `kadar-air.json` ke `public/models/`.
+5. Setelah ada uji oven (rencana tahap 1: 25 unit, minimal 10), jalankan `kalibrasi_kadar_air.py` dan salin `kadar-air.json` ke `public/models/`.
 
 ## Metrik yang dilaporkan (`evaluasi.json`)
 
