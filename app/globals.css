@@ -298,3 +298,21 @@ select.standalone-input{appearance:auto}
 .card.how summary{min-height:44px;font-size:14px;font-weight:650;padding:0}
 .card.how[open]{padding-bottom:12px}
 .card.how .how-list{margin-top:2px}
+
+/* Report format selection */
+.report-download{margin-top:20px}
+.report-download fieldset{min-width:0;margin:0;padding:0;border:0}
+.report-download legend{margin-bottom:10px;font-size:var(--text-label);font-weight:650}
+.report-formats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.report-format{position:relative;display:grid;grid-template-columns:1fr auto;gap:6px;padding:14px;border:1px solid var(--border);border-radius:16px;background:var(--surface);color:var(--muted);cursor:pointer}
+.report-format.selected{border-color:var(--blue);background:var(--bg);color:var(--blue-dark)}
+.report-format:focus-within{outline:2px solid var(--blue);outline-offset:3px}
+.report-format input{grid-column:2;grid-row:1;width:18px;height:18px;margin:3px 0;accent-color:var(--blue)}
+.report-format>svg{grid-column:1;grid-row:1}
+.report-format strong,.report-format small{grid-column:1/-1}
+.report-format strong{font-size:var(--text-body);color:var(--ink)}
+.report-format small{font-size:12px;line-height:1.5;color:var(--muted)}
+.report-download fieldset:disabled .report-format{cursor:wait;opacity:.65}
+.report-download .report-scope{margin:12px 0;color:var(--muted);font-size:var(--text-label)}
+.report-download>.primary{margin-top:14px}
+.icon-button:disabled{opacity:.4;cursor:default}
