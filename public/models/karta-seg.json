@@ -1,9 +1,8 @@
 {
- "nama": "SORA-Seg versi uji",
- "versi": "20261106-1057",
+ "nama": "SORA-Seg DeepLabv3+ resnet50",
+ "versi": "20261107-0714",
  "arsitektur": "DeepLabv3+",
- "encoder": "mobilenet_v2",
- "berkas": "karta-seg-int8.onnx",
+ "encoder": "resnet50",
  "kelas": [
   "latar",
   "organik_basah",
@@ -60,8 +59,8 @@
   ]
  ],
  "ukuran_masukan": [
-  256,
-  256
+  384,
+  384
  ],
  "mean": [
   0.48500001430511475,
@@ -73,12 +72,13 @@
   0.2240000069141388,
   0.22499999403953552
  ],
+ "berkas": "karta-seg-int8.onnx",
  "masukan": "masukan",
  "keluaran": "prob",
- "sumber_data": "sintetis-uji-alur",
+ "sumber_data": "data-publik",
  "metrik_uji": {
-  "miou": 0.5612,
-  "mae_proporsi_pp": 4.406,
-  "muatan_uji": 10
+  "miou": 0.4056,
+  "mae_proporsi_pp": 14.334,
+  "muatan_uji": 157
  }
 }
