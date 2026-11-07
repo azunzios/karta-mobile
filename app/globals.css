@@ -316,3 +316,35 @@ select.standalone-input{appearance:auto}
 .report-download .report-scope{margin:12px 0;color:var(--muted);font-size:var(--text-label)}
 .report-download>.primary{margin-top:14px}
 .icon-button:disabled{opacity:.4;cursor:default}
+
+/* Proses pindai bertahap */
+.scan-progress{margin:12px 0 4px;padding:14px;border:1px solid var(--border);border-radius:16px;background:var(--surface);display:grid;gap:10px;animation:enter .25s ease-out}
+.scan-total,.model-bar{height:6px;border-radius:999px;background:#d9e3f5;overflow:hidden}
+.scan-total>i,.model-bar>i{display:block;height:100%;width:100%;background:var(--blue);transform-origin:left;transition:transform .3s ease-out}
+.model-bar{width:70%;background:#ffffff40}.model-bar>i{background:#fff}
+.scan-total-row{display:flex;justify-content:space-between;font-size:var(--text-label)}
+.frame-dots{display:flex;align-items:center;gap:6px}
+.frame-dots>i{width:22px;height:6px;border-radius:999px;background:#d9e3f5;transition:background .3s}
+.frame-dots>i.done{background:var(--teal)}.frame-dots>i.now{background:var(--blue);animation:pulse-dot 1s ease-in-out infinite}
+.frame-dots>span{margin-left:auto;font-size:var(--text-label);color:var(--muted)}
+.calc-steps{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.calc-steps li{display:flex;align-items:center;gap:10px;color:var(--muted);transition:color .2s}
+.calc-steps li.jalan{color:var(--ink)}.calc-steps li.selesai{color:var(--ink)}
+.calc-icon{width:22px;height:22px;border-radius:50%;border:1.5px solid #c3cfe4;display:grid;place-items:center;flex:none;transition:background .2s,border-color .2s}
+.calc-steps li.selesai .calc-icon{background:var(--teal);border-color:var(--teal);color:#fff}
+.cancel-scan{min-height:44px;display:flex;align-items:center;justify-content:center;gap:6px}
+.scan-btn{position:relative;overflow:hidden}
+.scan-btn .btn-progress{position:absolute;inset:0;background:#ffffff33;transform-origin:left;transition:transform .3s ease-out;pointer-events:none}
+.scan-btn .btn-label{position:relative;display:inline-flex;align-items:center;gap:8px}
+.seg-overlay.mask-in{animation:mask-fade .5s ease-out}
+.scan-fail{display:flex;gap:12px;align-items:flex-start;padding:14px;border-radius:16px;border:1px solid #e9b8b0;background:#fdf0ee;color:#7a2418}
+.scan-fail strong{display:block}.scan-fail span{font-size:var(--text-label)}
+.shake{animation:shake .4s ease-in-out 1}
+.result-section{animation:rise .35s ease-out}
+.composition-bar.grow>span{transform-origin:left;animation:grow-x .45s ease-out both}
+@keyframes mask-fade{from{opacity:0}to{opacity:1}}
+@keyframes pulse-dot{50%{opacity:.4}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes grow-x{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@media(prefers-color-scheme:dark){.scan-total,.model-bar,.frame-dots>i{background:#2b3a57}.scan-fail{background:#3a1e1b;border-color:#6b3028;color:#ffd5cf}.calc-icon{border-color:#4a5b7c}}
